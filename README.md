@@ -10,6 +10,7 @@ Firstly the dataset will be made available for online SQL querries. Then the dat
 
 **Data Wrangling/Data**
 Does openbeta-usa-routes-aug-2020.zip contain all the data that is found in the .zip files of specific areas?
+Compare Mountain2.zip and Mountains2.zip. Which dataset is more complete?  
 Which routes can not be found in one or the other dataset?
 Split the grade column into seperate columns for each grading system
 Create seperate tables for the various types of climbs. 
@@ -20,4 +21,4 @@ How many sport routes exist in each data set/region?
 Which region has the highest ratio of sport type routes compared to others?
 What does the spread of grades look like across the regions and the US?
 Which region has the hardest grades?
-
+What style of climbing is mostly found in each state?
