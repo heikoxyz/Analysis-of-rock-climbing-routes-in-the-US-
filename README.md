@@ -29,6 +29,6 @@ The distribution of sport climbing routes across states by grade.
      Which state has the most sport climbing routes relative to all types of climbing?
      What style of climbing is mostly found in each state in relative terms?
 
-     For a more fair/relevant comparison, lets consider state area:
-     Which state has the most dense distribution of sport routes?
+For a more fair/relevant comparison, lets consider state area:
+Which state has the most dense distribution of sport routes?
 
