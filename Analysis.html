@@ -15103,31 +15103,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     </script>
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># With a clean dataset of all climbing routes and all sport routes across states, we can now analyze:</span>
-
-<span class="c1"># The distribution of sport climbing routes across states by grade.</span>
-    <span class="c1"># Which state has the hardes sport climbing routes (most routes &gt;=8a)?</span>
-    <span class="c1"># How many hard grades (&gt;= 8a) are there in the states?</span>
-    <span class="c1"># Which state has the most sport climbing routes?</span>
-    <span class="c1"># Since trad climbing is very common in the US, which state has the most trad routes?</span>
-    <span class="c1"># Which state has the most sport climbing routes relative to all types of climbing?</span>
-
-    <span class="c1"># For a more fair/relevant comparison, lets consider state area:</span>
-        <span class="c1"># Which state has the most dense distribution of sport routes?</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
+<div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput ">
 
 </div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
@@ -15141,97 +15117,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 </div>
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load packages</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">glob</span>
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput ">
 
-<span class="c1"># import the data</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;G:\My Drive\Trainings\Python\Trainings_file\climbing project\Cleaned dataset\Data_final.xlsx&quot;</span><span class="p">)</span>
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput ">
 
-<span class="c1"># for normalization of the route count to the the size of the state later in the analysis, </span>
-<span class="c1"># we generate a file containing the state size outside of python and import it afterwards.</span>
-
-<span class="c1"># First, we export the states abbrevation from our data, which we need to align the two datasets externally.</span>
-<span class="n">all_states_np</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-<span class="n">all_states_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">all_states_np</span><span class="p">)</span>
-<span class="n">all_states_df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s1">&#39;G:\My Drive\Trainings\Python\Trainings_file\climbing project\Cleaned dataset\All_states_vec.xlsx&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-
-<span class="c1"># The states from our dataset were matched with the size of each state in Excel.</span>
-<span class="c1"># The size was obained from: https://statesymbolsusa.org/symbol-official-item/national-us/uncategorized/states-size</span>
-<span class="c1"># We now import the generated file containing the sizes.</span>
-<span class="n">state_size</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;G:\My Drive\Trainings\Python\Trainings_file\climbing project\Cleaned dataset\State_size.xlsx&quot;</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">state_size</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;State&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Make sure the column &#39;French grading&#39; is of type str so the x-axis in graphs is sorted correctly.</span>
-<span class="c1"># To avoid errors with NaN values we rename them to blanks.</span>
-<span class="n">data</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;French_grading&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;French_grading&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
-
-<span class="c1"># filter the data set for only sport routes.</span>
-<span class="c1"># Sport routes are labelled as TRUE in the df which is interpreted as 1 my Python.</span>
-<span class="c1"># We create a from data independent copy of sport.</span>
-<span class="n">sport</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">sport</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="c1"># Filter out ungraded routes</span>
-<span class="n">sport</span> <span class="o">=</span> <span class="n">sport</span><span class="p">[</span><span class="n">sport</span><span class="p">[</span><span class="s1">&#39;French_grading&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot the spread of grades across the states in a count plot.</span>
-<span class="n">total_sport_count_plot</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span> <span class="s1">&#39;French_grading&#39;</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">sport</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
-
-<span class="c1"># add gridlines for easier readability.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span> <span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span> <span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
-
-<span class="c1"># rotate the x axis labels to make it more readable.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="c1"># add a title</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Spread of Sport climbing grades across the states&#39;</span><span class="p">)</span>
-<span class="c1"># Show the plot</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell  jp-mod-noInput ">
 
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
@@ -15271,36 +15161,7 @@ class="
 </div>
 </div>
 </div>
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot the spread of grades across the states in a count plot.</span>
-<span class="n">pp</span><span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span> <span class="s1">&#39;French_grading&#39;</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">sport</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;State&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="n">col_order</span><span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sport</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span>
-
-<span class="c1"># Add a title to the FaceGrid and position it above the graph.</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Spread of Sport climbing grades in each states&#39;</span><span class="p">)</span>
-
-
-
-<span class="c1"># remove the labels to make it more readable for a purely high level overview.</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span> <span class="n">pp</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="n">pp</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-
-<span class="c1"># Show the plot</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell  jp-mod-noInput ">
 
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
@@ -15340,37 +15201,7 @@ class="
 </div>
 </div>
 </div>
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># adjust figure size and create a countplot counting all sport routes. List the occurences in descending order.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
-<span class="n">state_sport_counts_plot</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">sport</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;State_name_full&#39;</span><span class="p">,</span>
-            <span class="n">order</span><span class="o">=</span> <span class="n">sport</span><span class="p">[</span><span class="s1">&#39;State_name_full&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-
-<span class="c1"># remove the frame from the plot as well as the x-axis. Since we label the bars, the axis is not needed.</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">state_sport_counts_plot</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[],</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">state_sport_counts_plot</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="c1"># Add the count of each bar to the graph.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">container</span><span class="o">=</span><span class="n">state_sport_counts_plot</span><span class="o">.</span><span class="n">containers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="n">sport</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
-
-<span class="c1"># Add a title</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Number of sport climbing routes per state&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell  jp-mod-noInput ">
 
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
@@ -15398,46 +15229,7 @@ class="
 
 </div>
 
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Here we want to plot the % instead of the count.</span>
-
-<span class="c1"># adjust figure size and create a countplot counting all sport routes. List the occurences in descending order.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
-<span class="n">stateperc</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">sport</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;State_name_full&#39;</span><span class="p">,</span>
-            <span class="n">order</span><span class="o">=</span> <span class="n">sport</span><span class="p">[</span><span class="s1">&#39;State_name_full&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-
-<span class="c1"># remove the frame from the plot as well as the x-axis. Since we label the bars, the axis is not needed.</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">stateperc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[],</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">stateperc</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="c1"># Calculate the percentage of sport routes of each state as a fraction of the total.</span>
-<span class="n">state_sport_counts</span> <span class="o">=</span> <span class="n">sport</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-<span class="n">total_state_sport</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sport</span><span class="p">)</span>
-<span class="n">state_sport_percentages</span> <span class="o">=</span> <span class="p">(</span><span class="n">state_sport_counts</span> <span class="o">/</span> <span class="n">total_state_sport</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="c1"># Round the percentage to two decimals.</span>
-<span class="n">state_sport_percentages</span> <span class="o">=</span> <span class="n">state_sport_percentages</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># Label the plot with the percentages.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">container</span><span class="o">=</span><span class="n">stateperc</span><span class="o">.</span><span class="n">containers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">(</span><span class="n">state_sport_percentages</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span><span class="p">))</span>
-
-<span class="c1"># Add a title</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Number of sport climbing routes per state as </span><span class="si">% o</span><span class="s1">f the whole&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell  jp-mod-noInput ">
 
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
@@ -15477,41 +15269,7 @@ class="
 </div>
 </div>
 </div>
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Transform the np array of sport route counts to a dataframe and merge it with the state_size dataframe, only keeping states present in our dataset.</span>
-<span class="c1"># Save the new df as state_size_norm_data.</span>
-<span class="n">state_sport_counts_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">state_sport_counts</span><span class="p">)</span>
-<span class="n">state_sport_counts_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="s1">&#39;sport_route_count&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">state_size_norm_data</span> <span class="o">=</span> <span class="n">state_size</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">state_sport_counts_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;State&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
-
-<span class="c1"># Add a new column containing the normalized sport routes as a fraction of state size.</span>
-<span class="n">state_size_norm_data</span><span class="p">[</span><span class="s1">&#39;norm_sport_route_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">state_size_norm_data</span><span class="p">[</span><span class="s1">&#39;sport_route_count&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">state_size_norm_data</span><span class="p">[</span><span class="s1">&#39;State_sqMiles&#39;</span><span class="p">]</span>
-
-<span class="c1"># Plot the normalized data</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
-<span class="n">norm_sport_plt</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">state_size_norm_data</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;State_name_full&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span> <span class="s1">&#39;norm_sport_route_count&#39;</span><span class="p">,</span>
-            <span class="n">order</span><span class="o">=</span> <span class="n">state_size_norm_data</span><span class="p">[</span><span class="s1">&#39;State_name_full&#39;</span><span class="p">])</span>
-
-<span class="c1"># remove the frame from the plot as well as the x-axis. Since we label the bars, the axis is not needed.</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">norm_sport_plt</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[],</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">norm_sport_plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="c1"># Add a title</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sport climbing density of each State&#39;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell  jp-mod-noInput ">
 
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
@@ -15519,18 +15277,6 @@ class="
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>Text(0.5, 1.0, &#39;Sport climbing density of each State&#39;)</pre>
-</div>
-
-</div>
 <div class="jp-OutputArea-child">
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
@@ -15564,32 +15310,300 @@ New Hampshire, while by far not having the most sport climbing routes, has the m
 </div>
 </div>
 </div>
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell  jp-mod-noInput ">
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<style type="text/css">
+#T_87f73 thead {
+  background-color: lightgrey;
+}
+</style>
+<table id="T_87f73">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_87f73_level0_col0" class="col_heading level0 col0" >State</th>
+      <th id="T_87f73_level0_col1" class="col_heading level0 col1" >State size (sqM)</th>
+      <th id="T_87f73_level0_col2" class="col_heading level0 col2" >Nr. of Sport routes</th>
+      <th id="T_87f73_level0_col3" class="col_heading level0 col3" >Sport routes/sqm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_87f73_level0_row0" class="row_heading level0 row0" >1</th>
+      <td id="T_87f73_row0_col0" class="data row0 col0" >New Hampshire</td>
+      <td id="T_87f73_row0_col1" class="data row0 col1" >8969</td>
+      <td id="T_87f73_row0_col2" class="data row0 col2" >834</td>
+      <td id="T_87f73_row0_col3" class="data row0 col3" >0.092987</td>
+    </tr>
+    <tr>
+      <th id="T_87f73_level0_row1" class="row_heading level0 row1" >2</th>
+      <td id="T_87f73_row1_col0" class="data row1 col0" >Colorado</td>
+      <td id="T_87f73_row1_col1" class="data row1 col1" >103730</td>
+      <td id="T_87f73_row1_col2" class="data row1 col2" >7387</td>
+      <td id="T_87f73_row1_col3" class="data row1 col3" >0.071214</td>
+    </tr>
+    <tr>
+      <th id="T_87f73_level0_row2" class="row_heading level0 row2" >3</th>
+      <td id="T_87f73_row2_col0" class="data row2 col0" >California</td>
+      <td id="T_87f73_row2_col1" class="data row2 col1" >155973</td>
+      <td id="T_87f73_row2_col2" class="data row2 col2" >8455</td>
+      <td id="T_87f73_row2_col3" class="data row2 col3" >0.054208</td>
+    </tr>
+    <tr>
+      <th id="T_87f73_level0_row3" class="row_heading level0 row3" >4</th>
+      <td id="T_87f73_row3_col0" class="data row3 col0" >Utah</td>
+      <td id="T_87f73_row3_col1" class="data row3 col1" >82168</td>
+      <td id="T_87f73_row3_col2" class="data row3 col2" >3828</td>
+      <td id="T_87f73_row3_col3" class="data row3 col3" >0.046587</td>
+    </tr>
+    <tr>
+      <th id="T_87f73_level0_row4" class="row_heading level0 row4" >5</th>
+      <td id="T_87f73_row4_col0" class="data row4 col0" >West Virginia</td>
+      <td id="T_87f73_row4_col1" class="data row4 col1" >24087</td>
+      <td id="T_87f73_row4_col2" class="data row4 col2" >912</td>
+      <td id="T_87f73_row4_col3" class="data row4 col3" >0.037863</td>
+    </tr>
+    <tr>
+      <th id="T_87f73_level0_row5" class="row_heading level0 row5" >6</th>
+      <td id="T_87f73_row5_col0" class="data row5 col0" >Kentucky</td>
+      <td id="T_87f73_row5_col1" class="data row5 col1" >39732</td>
+      <td id="T_87f73_row5_col2" class="data row5 col2" >1416</td>
+      <td id="T_87f73_row5_col3" class="data row5 col3" >0.035639</td>
+    </tr>
+    <tr>
+      <th id="T_87f73_level0_row6" class="row_heading level0 row6" >7</th>
+      <td id="T_87f73_row6_col0" class="data row6 col0" >Washington</td>
+      <td id="T_87f73_row6_col1" class="data row6 col1" >66582</td>
+      <td id="T_87f73_row6_col2" class="data row6 col2" >2316</td>
+      <td id="T_87f73_row6_col3" class="data row6 col3" >0.034784</td>
+    </tr>
+    <tr>
+      <th id="T_87f73_level0_row7" class="row_heading level0 row7" >8</th>
+      <td id="T_87f73_row7_col0" class="data row7 col0" >Arizona</td>
+      <td id="T_87f73_row7_col1" class="data row7 col1" >113642</td>
+      <td id="T_87f73_row7_col2" class="data row7 col2" >3065</td>
+      <td id="T_87f73_row7_col3" class="data row7 col3" >0.026971</td>
+    </tr>
+    <tr>
+      <th id="T_87f73_level0_row8" class="row_heading level0 row8" >9</th>
+      <td id="T_87f73_row8_col0" class="data row8 col0" >Vermont</td>
+      <td id="T_87f73_row8_col1" class="data row8 col1" >9249</td>
+      <td id="T_87f73_row8_col2" class="data row8 col2" >220</td>
+      <td id="T_87f73_row8_col3" class="data row8 col3" >0.023786</td>
+    </tr>
+    <tr>
+      <th id="T_87f73_level0_row9" class="row_heading level0 row9" >10</th>
+      <td id="T_87f73_row9_col0" class="data row9 col0" >Wyoming</td>
+      <td id="T_87f73_row9_col1" class="data row9 col1" >97105</td>
+      <td id="T_87f73_row9_col2" class="data row9 col2" >2253</td>
+      <td id="T_87f73_row9_col3" class="data row9 col3" >0.023202</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput ">
+
+</div>
+<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the first 10 most dense sport climbing states in a table with descending order.</span>
-<span class="n">sel_table</span> <span class="o">=</span> <span class="n">state_size_norm_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;norm_sport_route_count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1"># Drop the column holding the state abbrevation.</span>
-<span class="n">sel_table</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">],</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="c1"># Reset the index and make it start at 1 to visually list the top 10 states.</span>
-<span class="n">sel_table</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">sel_table</span><span class="o">.</span><span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now that we looked at the distribution of sport climbing routes across states, we want to dig into the more difficult routes. In the States, at the time this data was extracted, there were 1569 sport routes graded 8a or harder. This makes up 3.44 % of all sport routes. A list of the number of sport routes per State is shown below. The mean percentage of hard routes in each State is 5.8 % as shown by the violin plot.</p>
 
-<span class="c1"># We use Pandas display function to print a prettier table.                                                                                                </span>
-<span class="n">display</span><span class="p">(</span><span class="n">sel_table</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_table_styles</span><span class="p">([</span>
-    <span class="p">{</span><span class="s1">&#39;selector&#39;</span><span class="p">:</span> <span class="s1">&#39;thead&#39;</span><span class="p">,</span> <span class="s1">&#39;props&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgrey&#39;</span><span class="p">)]}</span>
-<span class="p">]))</span>
-</pre></div>
+</div>
+</div>
+</div>
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell  jp-mod-noInput ">
 
-     </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<style type="text/css">
+#T_e5765 thead {
+  background-color: lightgrey;
+}
+</style>
+<table id="T_e5765">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_e5765_level0_col0" class="col_heading level0 col0" >State</th>
+      <th id="T_e5765_level0_col1" class="col_heading level0 col1" >Count of Hard Routes</th>
+      <th id="T_e5765_level0_col2" class="col_heading level0 col2" >% of the States total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_e5765_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_e5765_row0_col0" class="data row0 col0" >Colorado</td>
+      <td id="T_e5765_row0_col1" class="data row0 col1" >523</td>
+      <td id="T_e5765_row0_col2" class="data row0 col2" >7.08</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_e5765_row1_col0" class="data row1 col0" >California</td>
+      <td id="T_e5765_row1_col1" class="data row1 col1" >328</td>
+      <td id="T_e5765_row1_col2" class="data row1 col2" >3.88</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_e5765_row2_col0" class="data row2 col0" >Utah</td>
+      <td id="T_e5765_row2_col1" class="data row2 col1" >235</td>
+      <td id="T_e5765_row2_col2" class="data row2 col2" >6.14</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_e5765_row3_col0" class="data row3 col0" >Wyoming</td>
+      <td id="T_e5765_row3_col1" class="data row3 col1" >155</td>
+      <td id="T_e5765_row3_col2" class="data row3 col2" >6.88</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_e5765_row4_col0" class="data row4 col0" >Arizona</td>
+      <td id="T_e5765_row4_col1" class="data row4 col1" >144</td>
+      <td id="T_e5765_row4_col2" class="data row4 col2" >4.7</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_e5765_row5_col0" class="data row5 col0" >Oregon</td>
+      <td id="T_e5765_row5_col1" class="data row5 col1" >132</td>
+      <td id="T_e5765_row5_col2" class="data row5 col2" >9.15</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row6" class="row_heading level0 row6" >6</th>
+      <td id="T_e5765_row6_col0" class="data row6 col0" >Kentucky</td>
+      <td id="T_e5765_row6_col1" class="data row6 col1" >88</td>
+      <td id="T_e5765_row6_col2" class="data row6 col2" >6.21</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row7" class="row_heading level0 row7" >7</th>
+      <td id="T_e5765_row7_col0" class="data row7 col0" >South Dakota</td>
+      <td id="T_e5765_row7_col1" class="data row7 col1" >85</td>
+      <td id="T_e5765_row7_col2" class="data row7 col2" >7.37</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row8" class="row_heading level0 row8" >8</th>
+      <td id="T_e5765_row8_col0" class="data row8 col0" >Nevada</td>
+      <td id="T_e5765_row8_col1" class="data row8 col1" >85</td>
+      <td id="T_e5765_row8_col2" class="data row8 col2" >6.33</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row9" class="row_heading level0 row9" >9</th>
+      <td id="T_e5765_row9_col0" class="data row9 col0" >Washington</td>
+      <td id="T_e5765_row9_col1" class="data row9 col1" >82</td>
+      <td id="T_e5765_row9_col2" class="data row9 col2" >3.54</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row10" class="row_heading level0 row10" >10</th>
+      <td id="T_e5765_row10_col0" class="data row10 col0" >West Virginia</td>
+      <td id="T_e5765_row10_col1" class="data row10 col1" >80</td>
+      <td id="T_e5765_row10_col2" class="data row10 col2" >8.77</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row11" class="row_heading level0 row11" >11</th>
+      <td id="T_e5765_row11_col0" class="data row11 col0" >New Hampshire</td>
+      <td id="T_e5765_row11_col1" class="data row11 col1" >71</td>
+      <td id="T_e5765_row11_col2" class="data row11 col2" >8.51</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row12" class="row_heading level0 row12" >12</th>
+      <td id="T_e5765_row12_col0" class="data row12 col0" >New Mexico</td>
+      <td id="T_e5765_row12_col1" class="data row12 col1" >69</td>
+      <td id="T_e5765_row12_col2" class="data row12 col2" >4.49</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row13" class="row_heading level0 row13" >13</th>
+      <td id="T_e5765_row13_col0" class="data row13 col0" >Tennessee</td>
+      <td id="T_e5765_row13_col1" class="data row13 col1" >54</td>
+      <td id="T_e5765_row13_col2" class="data row13 col2" >6.49</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row14" class="row_heading level0 row14" >14</th>
+      <td id="T_e5765_row14_col0" class="data row14 col0" >Arkansas</td>
+      <td id="T_e5765_row14_col1" class="data row14 col1" >50</td>
+      <td id="T_e5765_row14_col2" class="data row14 col2" >5.5</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row15" class="row_heading level0 row15" >15</th>
+      <td id="T_e5765_row15_col0" class="data row15 col0" >Idaho</td>
+      <td id="T_e5765_row15_col1" class="data row15 col1" >44</td>
+      <td id="T_e5765_row15_col2" class="data row15 col2" >3.79</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row16" class="row_heading level0 row16" >16</th>
+      <td id="T_e5765_row16_col0" class="data row16 col0" >Illinois</td>
+      <td id="T_e5765_row16_col1" class="data row16 col1" >39</td>
+      <td id="T_e5765_row16_col2" class="data row16 col2" >8.26</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row17" class="row_heading level0 row17" >17</th>
+      <td id="T_e5765_row17_col0" class="data row17 col0" >Texas</td>
+      <td id="T_e5765_row17_col1" class="data row17 col1" >37</td>
+      <td id="T_e5765_row17_col2" class="data row17 col2" >4.24</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row18" class="row_heading level0 row18" >18</th>
+      <td id="T_e5765_row18_col0" class="data row18 col0" >Alabama</td>
+      <td id="T_e5765_row18_col1" class="data row18 col1" >28</td>
+      <td id="T_e5765_row18_col2" class="data row18 col2" >11.76</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row19" class="row_heading level0 row19" >19</th>
+      <td id="T_e5765_row19_col0" class="data row19 col0" >Montana</td>
+      <td id="T_e5765_row19_col1" class="data row19 col1" >26</td>
+      <td id="T_e5765_row19_col2" class="data row19 col2" >3.86</td>
+    </tr>
+    <tr>
+      <th id="T_e5765_level0_row20" class="row_heading level0 row20" >20</th>
+      <td id="T_e5765_row20_col0" class="data row20 col0" >Minnesota</td>
+      <td id="T_e5765_row20_col1" class="data row20 col1" >24</td>
+      <td id="T_e5765_row20_col2" class="data row20 col2" >8.42</td>
+    </tr>
+  </tbody>
+</table>
+
 </div>
+
 </div>
+
+</div>
+
+</div>
+
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell  jp-mod-noInput ">
 
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
@@ -15603,96 +15617,12 @@ New Hampshire, while by far not having the most sport climbing routes, has the m
 
 
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<style type="text/css">
-#T_43a7c thead {
-  background-color: lightgrey;
-}
-</style>
-<table id="T_43a7c">
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_43a7c_level0_col0" class="col_heading level0 col0" >State_name_full</th>
-      <th id="T_43a7c_level0_col1" class="col_heading level0 col1" >State_sqMiles</th>
-      <th id="T_43a7c_level0_col2" class="col_heading level0 col2" >sport_route_count</th>
-      <th id="T_43a7c_level0_col3" class="col_heading level0 col3" >norm_sport_route_count</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_43a7c_level0_row0" class="row_heading level0 row0" >1</th>
-      <td id="T_43a7c_row0_col0" class="data row0 col0" >New Hampshire</td>
-      <td id="T_43a7c_row0_col1" class="data row0 col1" >8969</td>
-      <td id="T_43a7c_row0_col2" class="data row0 col2" >834</td>
-      <td id="T_43a7c_row0_col3" class="data row0 col3" >0.092987</td>
-    </tr>
-    <tr>
-      <th id="T_43a7c_level0_row1" class="row_heading level0 row1" >2</th>
-      <td id="T_43a7c_row1_col0" class="data row1 col0" >Colorado</td>
-      <td id="T_43a7c_row1_col1" class="data row1 col1" >103730</td>
-      <td id="T_43a7c_row1_col2" class="data row1 col2" >7387</td>
-      <td id="T_43a7c_row1_col3" class="data row1 col3" >0.071214</td>
-    </tr>
-    <tr>
-      <th id="T_43a7c_level0_row2" class="row_heading level0 row2" >3</th>
-      <td id="T_43a7c_row2_col0" class="data row2 col0" >California</td>
-      <td id="T_43a7c_row2_col1" class="data row2 col1" >155973</td>
-      <td id="T_43a7c_row2_col2" class="data row2 col2" >8455</td>
-      <td id="T_43a7c_row2_col3" class="data row2 col3" >0.054208</td>
-    </tr>
-    <tr>
-      <th id="T_43a7c_level0_row3" class="row_heading level0 row3" >4</th>
-      <td id="T_43a7c_row3_col0" class="data row3 col0" >Utah</td>
-      <td id="T_43a7c_row3_col1" class="data row3 col1" >82168</td>
-      <td id="T_43a7c_row3_col2" class="data row3 col2" >3828</td>
-      <td id="T_43a7c_row3_col3" class="data row3 col3" >0.046587</td>
-    </tr>
-    <tr>
-      <th id="T_43a7c_level0_row4" class="row_heading level0 row4" >5</th>
-      <td id="T_43a7c_row4_col0" class="data row4 col0" >West Virginia</td>
-      <td id="T_43a7c_row4_col1" class="data row4 col1" >24087</td>
-      <td id="T_43a7c_row4_col2" class="data row4 col2" >912</td>
-      <td id="T_43a7c_row4_col3" class="data row4 col3" >0.037863</td>
-    </tr>
-    <tr>
-      <th id="T_43a7c_level0_row5" class="row_heading level0 row5" >6</th>
-      <td id="T_43a7c_row5_col0" class="data row5 col0" >Kentucky</td>
-      <td id="T_43a7c_row5_col1" class="data row5 col1" >39732</td>
-      <td id="T_43a7c_row5_col2" class="data row5 col2" >1416</td>
-      <td id="T_43a7c_row5_col3" class="data row5 col3" >0.035639</td>
-    </tr>
-    <tr>
-      <th id="T_43a7c_level0_row6" class="row_heading level0 row6" >7</th>
-      <td id="T_43a7c_row6_col0" class="data row6 col0" >Washington</td>
-      <td id="T_43a7c_row6_col1" class="data row6 col1" >66582</td>
-      <td id="T_43a7c_row6_col2" class="data row6 col2" >2316</td>
-      <td id="T_43a7c_row6_col3" class="data row6 col3" >0.034784</td>
-    </tr>
-    <tr>
-      <th id="T_43a7c_level0_row7" class="row_heading level0 row7" >8</th>
-      <td id="T_43a7c_row7_col0" class="data row7 col0" >Arizona</td>
-      <td id="T_43a7c_row7_col1" class="data row7 col1" >113642</td>
-      <td id="T_43a7c_row7_col2" class="data row7 col2" >3065</td>
-      <td id="T_43a7c_row7_col3" class="data row7 col3" >0.026971</td>
-    </tr>
-    <tr>
-      <th id="T_43a7c_level0_row8" class="row_heading level0 row8" >9</th>
-      <td id="T_43a7c_row8_col0" class="data row8 col0" >Vermont</td>
-      <td id="T_43a7c_row8_col1" class="data row8 col1" >9249</td>
-      <td id="T_43a7c_row8_col2" class="data row8 col2" >220</td>
-      <td id="T_43a7c_row8_col3" class="data row8 col3" >0.023786</td>
-    </tr>
-    <tr>
-      <th id="T_43a7c_level0_row9" class="row_heading level0 row9" >10</th>
-      <td id="T_43a7c_row9_col0" class="data row9 col0" >Wyoming</td>
-      <td id="T_43a7c_row9_col1" class="data row9 col1" >97105</td>
-      <td id="T_43a7c_row9_col2" class="data row9 col2" >2253</td>
-      <td id="T_43a7c_row9_col3" class="data row9 col3" >0.023202</td>
-    </tr>
-  </tbody>
-</table>
 
+<div class="jp-RenderedImage jp-OutputArea-output ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ0AAAGrCAYAAAAb/EoSAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjcuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/bCgiHAAAACXBIWXMAAA9hAAAPYQGoP6dpAABekUlEQVR4nO3deVxU9f7H8deZnR1FBFFSccNdszTNUq8W2aq30szSrKyft92s1HJLjVt261Z2tdu9pbeyzDZbTFMryzR3c8lcUERUEBXZGWb5/v5AJlFAUOAwM5/n4zEP5cxZPsOcmTfnnO/5fjWllEIIIYSoBQa9CxBCCOE/JHSEEELUGgkdIYQQtUZCRwghRK2R0BFCCFFrJHSEEELUGgkdIYQQtUZCRwghRK2R0BFCCFFraix05s2bh6ZpJCcnV3nZe+65h2bNmpWapmkaU6dOrZbaqmLq1Klomlbr262I0+nk6aefJjY2FoPBwKBBg6q8jpL3Z+PGjdVfYB2yd+9err32WsLCwtA0jS+++KLM+X788Uc0TeOTTz6p3QLPotd+XheVvCc//vij3qVclJLvkOPHj+tdSp1Q6dC5+eabCQwMJCcnp9x5hg8fjsVi4cSJE9VSXE2655570DTN8wgNDaVz58784x//wG63V8s2/vWvfzFv3rxqWdeZ3nnnHWbNmsVtt93G/PnzeeKJJ2q9hso6deoUw4cPp169esTFxfHf//73nHk2btxIYGAgBw4cqPbtjxw5ku3btzNz5kzee+89Lrvssmrfhi/Lz89n6tSpXv/F7+2++uor+vTpQ8OGDQkMDCQuLo4hQ4awdOlSzzxHjhxh6tSpbN269YK3s2TJkpr/o0dV0kcffaQANX/+/DKfz8vLU0FBQeqmm25SSinldDpVQUGBcrvdld2Ex8iRI1XTpk1LTSsoKFAOh6PK66poG1arVb333nvqvffeU2+88Ybq27evAtTQoUM9802ZMkVV4ddUSvv27VWfPn2qqeI/DR06VDVu3Piianj33XcVoDZs2FDN1ZV23333qZiYGPXaa6+pRx55RGmapn755RfP8263W/Xs2VNNmDCh2redn5+vAPXss8+ed94ffvhBAWrRokXVXkdVAGrKlCm61nCmjIwM3WpyuVyqoKBAuVyuWt92dSr5DsnIyLig5WfNmqUA1adPH/XKK6+ouXPnqnHjxqkuXbqokSNHeubbsGGDAtS77757wbU+9NBDF/x9V1mmyobTzTffTEhICAsWLGDEiBHnPL948WLy8vIYPnw4AEajEaPReHGJeAabzVZt6yphMpm46667PD//7W9/o0ePHixcuJBXXnmFmJiYat9mdTh27Bjh4eF6l1EpX3/9NS+99JJnn9m2bRtfffUVvXr1AuCDDz7g4MGDTJw4sdq3nZGRAVCnfld5eXkEBQVV+3oLCwuxWCwYDL5zmdZgMNTI596bOJ1Opk+fzjXXXMN33313zvPHjh3ToaqLU+k9NCAggL/+9a+sXLmyzBe6YMECQkJCuPnmm4Hyr+n861//on379litVmJiYnjooYc4derUebd/9rnukvOk+/bt45577iE8PJywsDBGjRpFfn5+ZV9WKQaDgb59+wJUeC2qZEdo0aIFVquVZs2aMXHixFKn5Zo1a8bOnTtZtWqV5xReybrLk5eXx5NPPklsbCxWq5U2bdrw8ssvo053BJ6cnIymafzwww/s3LnTs97yTn1Upga73c7YsWOJjIwkKCiIwYMHe76sz/Ttt99y1VVXERQUREhICDfccAM7d+6s8PUAFBQUUK9ePc/P9evX97w/eXl5jB8/nsTERIKDg8+7rjNt2bKFgQMHEhoaSnBwMP379+fXX3/1PD916lSaNm0KwFNPPYWmaedcJyyL2+1m5syZNGnSBJvNRv/+/dm3b1+peX7++Wduv/12LrnkEqxWK7GxsTzxxBMUFBSUmu+ee+4hODiYpKQkrr/+ekJCQjx/lNntdp544gkiIyM9n5vU1NRKvfaSax0fffQRzz33HI0bNyYwMJDs7GwAFi1aRLdu3QgICKBBgwbcddddHD58uNQ6+vbtW+b+eOb11OTkZCIjIwGYNm2aZx8683P4xx9/cNttt1G/fn1sNhuXXXYZX375Zal1OhwOpk2bRqtWrbDZbERERNC7d2+WL19eqdd55v7dt29fOnTowO+//06/fv0IDAykcePGvPTSS5X63QG8//77nt9P/fr1ueOOOzh06FCpeSr7Hpf8DoYMGUJkZCQBAQG0adOGZ5999pz5Tp06VeXvquPHj5Odnc2VV15Z5vMNGzYEin9Xl19+OQCjRo3yvFclp9Yr83ruuece3nzzTYBSlx5KuN1u/vnPf9K+fXtsNhtRUVE8+OCDZGZmVvgazlbpIx0ovmYzf/58Pv74Yx5++GHP9JMnT7Js2TKGDRtGQEBAuctPnTqVadOmMWDAAMaMGcPu3buZM2cOGzZs4JdffsFsNlepeIAhQ4bQvHlzEhMT2bx5M//5z39o2LAhL774YpXXBZCUlARAREREufPcf//9zJ8/n9tuu40nn3ySdevWkZiYyK5du/j8888B+Oc//8kjjzxCcHCwZweMiooqd51KKW6++WZ++OEH7rvvPrp06cKyZct46qmnOHz4MK+++iqRkZG89957zJw5k9zcXBITEwFo27ZtmeusTA2PPPII9erVY8qUKSQnJ/PPf/6Thx9+mIULF3rmee+99xg5ciQJCQm8+OKL5OfnM2fOHHr37s2WLVsq/DK//PLLeeWVV4iPj2f//v0sXbqUt99+G4AXXniBxo0bc/fdd5e7fFl27tzJVVddRWhoKE8//TRms5m33nqLvn37smrVKnr06MFf//pXwsPDeeKJJxg2bBjXX399pYLt73//OwaDgXHjxpGVlcVLL73E8OHDWbdunWeeRYsWkZ+fz5gxY4iIiGD9+vW88cYbpKamsmjRolLrczqdJCQk0Lt3b15++WUCAwOB4n3o/fff584776RXr158//333HDDDVX6PUyfPh2LxcK4ceOw2+1YLBbmzZvHqFGjuPzyy0lMTCQ9PZ3XXnuNX375hS1btlTpqC8yMpI5c+YwZswYBg8ezF//+lcAOnXqBBS/D1deeSWNGzdm/PjxBAUF8fHHHzNo0CA+/fRTBg8eDBR/7hMTE7n//vvp3r072dnZbNy4kc2bN3PNNddU6TUDZGZmct111/HXv/6VIUOG8Mknn/DMM8/QsWNHBg4cWOGyM2fOZNKkSQwZMoT777+fjIwM3njjDa6++upSv5/Kvsfbtm3jqquuwmw288ADD9CsWTOSkpL46quvmDlzZqltX8h3VcOGDQkICOCrr77ikUceoX79+mXO17ZtW55//nkmT57MAw88wFVXXQXgOaNQmdfz4IMPcuTIEZYvX8577713zjYefPBBz/716KOPcuDAAWbPns2WLVuq9v1dlXNxTqdTNWrUSPXs2bPU9Llz5ypALVu2zDOt5JrBgQMHlFJKHTt2TFksFnXttdeWOkc7e/ZsBah33nnHM62sazqcdV655DzpvffeW2q+wYMHq4iIiPO+lpEjR6qgoCCVkZGh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"
+class="
+"
+>
 </div>
 
 </div>
