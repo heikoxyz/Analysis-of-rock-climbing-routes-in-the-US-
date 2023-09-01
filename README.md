@@ -22,12 +22,11 @@ Proceed with the analysis of the routes of type: sport
 
 **Data analysis**
 The distribution of sport climbing routes across states by grade.
-     Which state has the hardes sport climbing routes (most routes >=8a)?
-     How many hard grades (>= 9a) are there in the states?
-     Which state has the most sport climbing routes?
-     Since trad climbing is very common in the US, which state has the most trad routes?
-     Which state has the most sport climbing routes relative to all types of climbing?
-     What style of climbing is mostly found in each state in relative terms?
+ -    Which state has the hardes sport climbing routes (most routes >=8a)?
+ -    How many hard grades (>= 9a) are there in the states?
+ -    Which state has the most sport climbing routes?
+ -    Which state has the most sport climbing routes relative to all types of climbing?
+ -    What style of climbing is mostly found in each state in relative terms?
 For a more fair/relevant comparison, lets consider state area:
 Which state has the most dense distribution of sport routes?
 
