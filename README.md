@@ -1,6 +1,6 @@
 **Goal of this project**
 
-This project is aiming to get first hand experience using more complex databasets and to apply Python-mediated data analysis.
+This project is aiming to get first hand experience in using more complex databasets and to apply Python-mediated data analysis.
 @vnugent was so kind to extract data of rock climbing routes from various US states of the website MountainProject.
 
 Within this projects I want to ask questions related to rock climbing in the US. 
@@ -10,7 +10,7 @@ Firstly however, this project is used to apply data wrangling and cleaning tasks
 
 **Data Wrangling**
 - Does openbeta-usa-routes-aug-2020.zip contain all the data that is found across the .zip files of specific areas?
-- Compare Mountain2.zip and Mountains2.zip. Which dataset is more complete? Are they similar? 
+- Compare Mountain2.zip and Mountains.zip. Which dataset is more complete? Are they similar? 
 - Which routes can not be found in one or the other dataset?
 - Split the grade column into seperate columns for each grading system
 - Split the climbing type (trad, sport, bouldering) into individual columns
@@ -24,7 +24,7 @@ Firstly however, this project is used to apply data wrangling and cleaning tasks
 **Data analysis**
 The distribution of sport climbing routes across states by grade.
  -    Which state has the hardes sport climbing routes (most routes >=8a)?
- -    How many hard grades (>= 9a) are there in the states?
+ -    How many grades graded 9a or harder are there in the states?
  -    Which state has the most sport climbing routes?
  -    Which state has the most sport climbing routes relative to all types of climbing?
  -    What style of climbing is mostly found in each state in relative terms?
