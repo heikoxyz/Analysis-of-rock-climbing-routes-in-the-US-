@@ -38,6 +38,7 @@ This report could be further improved. For example by:
 - Making scrollable elements like long tables with filtering options
 - The report mainly focuses on sport routes. One could envision a customizable report by user entry/input on a dashboard or website for example trad instead of sport, YDS grading instead of French grading,..
 - Numbering of tables and a clearer structure including a table of contents.
+
 For now no further efforts will be made to improve the report, since the main goal was not the report, but learning and applying Python, Data wrangling and visualization.
 Additionally, for some ways of reporting, other tools might be more applicable like MS Office or Tableau.
 
